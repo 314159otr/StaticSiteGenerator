@@ -1,11 +1,15 @@
 import os
 import shutil
+import sys
 from generate_page import generate_pages_recursive
 
 def main():
-    delete_dir("public")
-    copy_from_to("static", "public")
-    generate_pages_recursive("content", "template.html", "public")
+    basepath = "/"
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+    delete_dir("docs")
+    copy_from_to("static", "docs")
+    generate_pages_recursive("content", "template.html", "docs", basepath)
 
 def copy_from_to(start, to):
     if not os.path.exists(start):
