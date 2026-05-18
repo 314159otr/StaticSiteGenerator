@@ -1,11 +1,11 @@
 import os
 import shutil
-from generate_page import generate_page
+from generate_page import generate_pages_recursive
 
 def main():
     delete_dir("public")
     copy_from_to("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 def copy_from_to(start, to):
     if not os.path.exists(start):
@@ -25,5 +25,7 @@ def copy_from_to(start, to):
 def delete_dir(path):
     if os.path.exists(path):
         shutil.rmtree(path)
+
+
 
 main()

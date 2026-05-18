@@ -30,3 +30,14 @@ def extract_title(markdown):
         if line.startswith("# "):
             return line[2:]
     raise Exception("There is no title header")
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    dirs = os.listdir(dir_path_content)
+    for dir in dirs:
+        path_source = os.path.join(dir_path_content, dir)
+        dir_dest = dir.replace(".md", ".html")
+        path_destination = os.path.join(dest_dir_path, dir_dest)
+        if os.path.isfile(path_source):
+            generate_page(path_source, template_path, path_destination)
+        else:
+            generate_pages_recursive(path_source, template_path, path_destination)
